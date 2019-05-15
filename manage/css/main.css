@@ -1,0 +1,43 @@
+html,
+body {
+    max-width: 100%;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.el-header,
+.el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+}
+
+.el-aside {
+    background-color: #D3DCE6;
+    color: #333;
+    text-align: center;
+    line-height: 200px;
+}
+
+.el-main {
+    background-color: #E9EEF3;
+    color: #333;
+    text-align: center;
+    line-height: 20px;
+    height: 440px;
+}
+
+.aside {
+    height: 600px;
+    width: 300px;
+}
+
+.top {
+    height: 100px;
+    background-color: #B3C0D1;
+}
+
+.table {
+    height: 400px;
+}

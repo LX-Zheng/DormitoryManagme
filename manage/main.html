@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>主页</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="./node_modules/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="top">
+            <el-input type="text" v-model="user_info" disabled="disabled">
+        </div>
+        <el-container>
+            <el-aside class="aside">
+                <el-row class="tac">
+                    <el-menu default-active="1" class="el-menu-vertical-demo">
+                        <el-menu-item index="1" @click="click1">
+                            <i class="el-icon-menu"></i>
+                            <span slot="title">我的宿舍</span>
+                        </el-menu-item>
+                        <el-menu-item index="2" @click="click2">
+                            <i class="el-icon-document"></i>
+                            <span slot="title">宿舍报修</span>
+                        </el-menu-item>
+                        <el-menu-item index="3" @click="click3">
+                            <i class="el-icon-setting"></i>
+                            <span slot="title">维修详情</span>
+                        </el-menu-item>
+                        <el-menu-item index="4" @click="click4">
+                            <i class="el-icon-setting"></i>
+                            <span slot="title">分数查询</span>
+                        </el-menu-item>
+                    </el-menu>
+                </el-row>
+            </el-aside>
+            <el-container>
+                <el-header>
+                    <el-input type="text" v-model="title" disabled="disabled">
+                </el-header>
+                <el-main>
+                    <!-- 我的宿舍 -->
+                    <template v-if="listshow === 1">
+                        <el-tabs v-model="activeName" @tab-click="handleClick">
+                        <el-tab-pane label="我的信息" name="first">
+                            <template>
+                                <el-table
+                                    :data="userInfo"
+                                    style="width:100%">
+                                    <el-table-column prop="name" label="姓名" width="180"></el-table-column>
+                                    <el-table-column prop="dorm" label="宿舍" width="180"></el-table-column>
+                                    <el-table-column prop="bed_num" label="床位"></el-table-column>
+                                </el-table>
+                            </template>
+                    </el-tab-pane>
+                    <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
+                    <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
+                    <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+                    </el-tabs>
+                    </template>
+                    <!-- 宿舍报修 -->
+                    <div v-if="listshow === 2">
+                        <el-input v-model="input" placeholder="请输入内容"></el-input>
+                        <el-divider content-position="left">详情</el-divider>
+                        <el-input type="textarea" :rows="6" placehoder="请输入内容" v-model="textarea">
+
+                        </el-input>
+                        <el-button type="success" @click="postdrom">提交</el-button>
+                    </div>
+                    <!-- 维修详情 -->
+                    <div v-if="listshow === 3">
+                        <template>
+                            <el-table
+                                :data="tableData"
+                                :default-sort="{prop:'date',order:'descending'}"
+                                style="width:100%">
+                                <el-table-column
+                                    prop="date"
+                                    label="日期"
+                                    width="120">
+                                </el-table-column>
+                                <el-table-column
+                                    prop="name"
+                                    label="姓名"
+                                    width="120">
+                                </el-table-column>
+                                <el-table-column
+                                    prop="address"
+                                    label="宿舍"
+                                    width="120">
+                                </el-table-column>
+                                <el-table-column
+                                    prop="detail"
+                                    label="详情"
+                                    width="150">
+                                </el-table-column>
+                                <el-table-column
+                                    label="状态">
+                                    <template slot-scope="scope">
+                                        <el-steps :space="200" :active="tableData[scope.$index].state" finish-status="success">
+                                            <el-step title="已声报"></el-step>
+                                            <el-step title="修理中"></el-step>
+                                            <el-step title="已完成"></el-step>
+                                        </el-steps>
+                                    </template>
+                        </el-table-column>
+                        </el-table>
+                        </template>
+                    </div>
+                    <!-- 分数查询 -->
+                    <template v-if="listshow === 4">
+                        <div class="table">
+                            <el-table
+                                :data="history"
+                                @row-click="rowClick"
+                                style="width:100%">
+                                <el-table-column
+                                    prop="record"
+                                    label="历史记录">
+                                </el-table-column>
+                            </el-table>
+                        </div>
+                        <div class="pagination">
+                            <el-pagination
+                                layout="prev, pager, next"
+                                :total="total"
+                                @current-change="handleCurrentChange"
+                                :page-size="7">
+                            </el-pagination>
+                        </div>
+                    </template>
+                </el-main>
+                <el-footer>常熟理工学院</el-footer>
+            </el-container>
+        </el-container>
+    </div>
+</body>
+<script src="./js/axios.min.js"></script>
+<script src="./js/vue.min.js"></script>
+<script src="node_modules/element-ui/lib/index.js"></script>
+<script src="./js/main.js"></script>
+</html>
